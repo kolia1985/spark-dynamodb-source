@@ -37,14 +37,14 @@ Refering $SPARK_HOME to the Spark installation directory. This library has been 
 	// Subscribe the "test" stream
 	scala> :paste
 	val dynamodb = spark
-  		.readStream
-  		.format("dynamodb")
-    	.option("streamName", "test")
-       	.option("regionname", "us-east-1")
-        .option("awsAccessKeyId", [ACCESS_KEY])
-        .option("awsSecretKey", [SECRET_KEY])
-        .option("startingposition", "TRIM_HORIZON")
-        .load
+  	  .readStream
+  	  .format("dynamodb")
+    	  .option("streamName", "test")
+       	  .option("regionname", "us-east-1")
+          .option("awsAccessKeyId", [ACCESS_KEY])
+          .option("awsSecretKey", [SECRET_KEY])
+          .option("startingposition", "TRIM_HORIZON")
+          .load
 
 ###### Check Schema 
 	scala> dynamodb.printSchema
@@ -58,13 +58,12 @@ Refering $SPARK_HOME to the Spark installation directory. This library has been 
 ###### Log data to console 
 	// Cast data into string
 	scala> :paste
-    
         dynamodb
-        .select($"data".cast("String")))
-        .writeStream
-        .format("console")
-        .start()
-        .awaitTermination()
+          .select($"data".cast("String")))
+          .writeStream
+          .format("console")
+          .start()
+          .awaitTermination()
         
 ###### Output in Console
 
