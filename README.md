@@ -23,7 +23,7 @@ Refer [Amazon Docs](https://docs.aws.amazon.com/cli/latest/reference/dynamodb/cr
     
 ###### Add Records in the stream
 
-Add record to the table using aws cli on your custom application.
+Add record to the table using aws cli or your custom application.
 
 #### Example Streaming Job
 
@@ -31,16 +31,18 @@ Refering $SPARK_HOME to the Spark installation directory. This library has been 
 
 ###### Open Spark-Shell
 
+Need to add spark-dynamodb-source_2.11-0.0.2.jar and dependency package com.amazonaws:dynamodb-streams-kinesis-adapter:1.5.0:
+
 	$SPARK_HOME/bin/spark-shell --jars target/spark-dynamodb-source_2.11-0.0.2.jar --packages "com.amazonaws:dynamodb-streams-kinesis-adapter:1.5.0"
 
 ###### Subscribe to DynamoDB Source
-	// Subscribe the "test" stream
-	scala> :paste
-	val dynamodb = spark
-  	  .readStream
-  	  .format("dynamodb")
-    	  .option("streamName", "test")
-       	  .option("regionname", "us-east-1")
+        // Subscribe the "test" stream
+        scala> :paste
+        val dynamodb = spark
+          .readStream
+          .format("dynamodb")
+          .option("streamName", "test")
+          .option("regionname", "us-east-1")
           .option("awsAccessKeyId", [ACCESS_KEY])
           .option("awsSecretKey", [SECRET_KEY])
           .option("startingposition", "TRIM_HORIZON")
